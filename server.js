@@ -7,8 +7,16 @@ var Express = require('express'),
 var redis = require("redis"),
     client = redis.createClient(process.env.REDIS_URL);
 
+console.log('connected to redis: ' + process.env.REDIS_URL);
+
 client.on("error", function (err) {
     console.log("Error " + err);
+});
+
+app.get('/_env', function(req, res)
+{
+  res.send(process.env);
+  res.end();
 });
 
 // proxy everything else
